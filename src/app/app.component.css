@@ -83,3 +83,7 @@
   .w-30 {
       width: 30%;
   }
+  .form-input {
+    margin-left: 10px;
+    border-color: gray;
+  }

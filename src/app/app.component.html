@@ -20,7 +20,7 @@
 </div>
 
 <sui-modal *ngIf="showModal" [mustScroll]="true" [isClosable]="false" [transitionDuration]="0"
-[size]="'normal'" appBodyScroll
+[size]="'large'" appBodyScroll
 (dismissed)="showModal = !showModal" #modal>
 <div class="header modal-header">
   Alerts
@@ -31,6 +31,10 @@
           <a class="item" suiTabHeader="1" class="tab-header-text">Immunization Alert</a>
           <a class="item" suiTabHeader="2">Lab Alert</a>
           <a class="item" suiTabHeader="3">DI Alert</a>
+          <a class="item" suiTabHeader="4">Procudure Alert</a>
+          <a class="item" suiTabHeader="4">RX Specific Alert</a>
+          <a class="item" suiTabHeader="6">DX Specific Alert</a>
+          <a class="item" suiTabHeader="7">Patient Specific Alert</a>
       </div>
       <div class="ui bottom attached segment" suiTabContent="1">
         <div class="ui two column grid container">
@@ -39,45 +43,80 @@
               Immunization Alert
             </div>
             <div style="margin-top: 5px;">
-              <label>Find</label>
-              <input type="text" style="margin-left: 10px; border-color: gray;">
+              <!-- <label>Find</label>
+              <input type="text" style="margin-left: 10px; border-color: gray;"> -->
+              <span style="margin-left: 380px;">
+                <button [disabled]="selectedUserIds.length === 0" class="ui primary button"
+                (click)="deleteUsers()">
+                  Delete
+                </button>
+              </span>
+            </div>
+            <table class="ui small table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Status</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of userData">
+                  <td>
+                    <sui-checkbox class="sb-checkbox mt-4" (checkChange)="toggleUserSection(data.id)">
+                    </sui-checkbox>
+                  </td>
+                  <td>{{ data.name }}</td>
+                  <td>{{ data.description }}</td>
+                  <td>{{ data.webReference }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div>
             </div>
           </div>
           <div class="column" style="border-left: 2px solid gray;">
+            <form (submit)="onUserAdd(userForm)" #userForm="ngForm">
             <table>
               <tr>
                 <td>
-                  <label>Name</label>
+                  <label>Name*</label>
                 </td>
                 <td>
-                  <input type="text" style="margin-left: 10px; border-color: gray;">
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label>Description</label>
-                </td>
-                <td>
-                  <input type="text" style="margin-left: 10px; border-color: gray;">
+                  <input type="text" name="name" class="form-input" ngModel required #name="ngModel">
                 </td>
               </tr>
               <tr>
                 <td>
-                  <label>Web Ref.</label>
+                  <label>Description*</label>
                 </td>
                 <td>
-                  <input type="text" style="margin-left: 10px; border-color: gray;">
+                  <input type="text" name="description" class="form-input" ngModel required #desciption="ngModel">
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <label>Web Ref.*</label>
+                </td>
+                <td>
+                  <input type="text" name="webReference" class="form-input" ngModel required #webReference="ngModel">
                 </td>
               </tr>
             </table>
             <div style="margin-top: 5px;">
-              <button class="ui button" style="margin-left: 210px;">Save</button>
+              <button class="ui button primary" style="margin-left: 210px;" type="submit">Save</button>
             </div>
+            </form>
           </div>
         </div>
       </div>
       <div class="ui bottom attached segment" suiTabContent="2">Lab Alert</div>
       <div class="ui bottom attached segment" suiTabContent="3">DI Alert</div>
+      <div class="ui bottom attached segment" suiTabContent="4">DI Alert</div>
+      <div class="ui bottom attached segment" suiTabContent="5">DI Alert</div>
+      <div class="ui bottom attached segment" suiTabContent="6">DI Alert</div>
+      <div class="ui bottom attached segment" suiTabContent="7">DI Alert</div>
   </sui-tabset>
 </div>
 <div class="actions">
