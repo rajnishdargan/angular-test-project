@@ -10,7 +10,7 @@ import * as uuid from 'uuid';
 })
 export class AppComponent implements OnInit{
   title = 'angular-test-project';
-  showModal = true;
+  showModal = false;
   userData: any[] = [];
   selectedUserIds = [];
 
